@@ -1,20 +1,22 @@
 // client-side js
 // run by the browser each time your view template is loaded
 
-$(function() {
+document.addEventListener("DOMContentLoaded", function() {
     
-  fetch('/search-track').then(resp => resp.json()).then((data) => {
+    fetch('/search-track').then(resp => resp.json()).then((data) => {
     // "Data" is the object we get from the API. See server.js for the function that returns it.
     console.group('%cResponse from /search-track', 'color: #F037A5; font-size: large');
     console.log(data);
     console.groupEnd();
     
     // Display the track name
-    var trackName = $(
-      // '<h3><a href="' + data.external_urls.spotify + '" target="blank">' + data.name + '</a></h3>'
-      `<h3><a href="${data.external_urls.spotify}">${data.name}</a></h3>`
-    );
-    trackName.appendTo('#search-track-container');
+    // var trackName = $(
+    //   // '<h3><a href="' + data.external_urls.spotify + '" target="blank">' + data.name + '</a></h3>'
+    //   `<h3><a href="${data.external_urls.spotify}">${data.name}</a></h3>`
+    // );
+    var trackName = document.createElement(`<h3><a href="${data.external_urls.spotify}">${data.name}</a></h3>`);
+    var searchTrack = document.getElementById('search-track-container');
+    searchTrack.appendChild(trackName);
     
     // Display the artist name
     var artists = '';
