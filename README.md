@@ -1,27 +1,75 @@
-Welcome to Glitch
-=================
+Spotify Playground
+=========================
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+Written by [Arielle Vaniderstine](https://twitter.com/imariari)
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+A basic Node app that integrates with the Spotify API. Explore different endpoints the API has to offer!
 
-Find out more [about Glitch](https://glitch.com/about).
+This app uses the *Client Credentials Flow* for authentication, which means you can only get non-user-specific data.
 
+-----
 
-Your Project
-------------
+## Getting Started
 
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
+1. After registering your app at developer.spotify.com/dashboard, put your app's client ID and secret (which you can find in the Dashboard) into the `.env` file.
 
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
+2. Click on "Show Live" in Glitch and verify that your app works (you should see data in each of the coloured sections).
 
+-----
 
-Made by [Glitch](https://glitch.com/)
--------------------
+## Working with the Playground
 
-\ ゜o゜)ノ
+- Navigate between files in Glitch's left panel.
+- See server logs by clicking "Status" at the top of the left panel.
+- Open the browser's **Developer Tools** by right-clicking and selecting **Inspect**.
+- Calls to the Spotify API live in **server.js**.
+- Calls to your own server and the rendering of the UI occur in **public/client.js**.
+
+-----
+
+## Challenges
+
+#### Pink: Search for a Track
+
+1. Change the song that shows up. *(Hint: look in server.js for the API call)*
+
+2. Display the artist name in addition to the song name. *(Hint: look at the whole track object to find the artist name)*
+
+3. Make the title link to the song on Spotify. *(Hint: look at the whole track object to find the song URL)*
+
+#### Purple: Get a Category's Playlists
+
+1. Get the playlists for a different category! You can find other categories [here](https://beta.developer.spotify.com/console/get-browse-categories/)
+
+2. Show 10 playlists instead of 5.
+
+3. Different playlists are shown to users in different countries. Show the playlists from another country.
+
+#### Orange: Get Audio Features for a Track
+
+1. What track are these audio features for?
+
+2. There are more audio features available. Display 2 more features.
+
+3. Get the audio features for another track.
+
+#### Blue: Get an Artist
+
+1. Get another artist.
+
+2. Show the popularity value for the artist.
+
+3. Show the number of followers the artist has.
+
+#### Yellow: Get an Artist's Top Tracks
+
+1. Whose top tracks are these?
+
+2. Get the top tracks of another artist.
+
+3. Top Tracks vary by country. Which country are these top tracks for? Show the top tracks in another country.
+
+### Bonus!
+
+Use a different endpoint to get totally different data! *(Hint: look at [this repository](https://github.com/thelinmichael/spotify-web-api-node/) for examples of all the calls you can make)*
+
