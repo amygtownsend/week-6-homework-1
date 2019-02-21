@@ -10,23 +10,11 @@ document.addEventListener("DOMContentLoaded", function() {
     console.groupEnd();
     
     // Display the track name
-    let a = document.createElement("h3");
-    a.innerHTML = `<a href=${data.external_urls.spotify} target="_blank"></a>`
-//     let b = document.createElement("a");
-//     let c = document.createAttribute("href");
-//     c.value = `${data.external_urls.spotify}`;
-//     b.setAttributeNode(c);
+    let h3 = document.createElement("h3");
+    h3.innerHTML = `<a href=${data.external_urls.spotify} target="_blank">${data.name}</a>`
       
-//     let d = document.createAttribute("target");
-//     d.value = '_blank';
-//     b.setAttributeNode(d);
-      
-//     let e = document.createTextNode(`${data.name}`);
-//     b.appendChild(e);
-//     a.appendChild(b);
-      
-    let f = document.getElementById("search-track-container");
-    f.appendChild(a);
+    let searchTrack = document.getElementById("search-track-container");
+    searchTrack.appendChild(h3);
     
     // Display the artist name
     let artists = '';
@@ -37,15 +25,17 @@ document.addEventListener("DOMContentLoaded", function() {
     
     let h5 = document.createElement('h5');
     h5.innerText = artists;
-    document.getElementById('search-track-container').append(h5);
+    searchTrack.appendChild(h5);
     
     // Display the album art
-    var img = $('<img/>');
-    img.attr('src', data.album.images[0].url);
-    img.appendTo('#search-track-container');
+    var img = document.createElement('img');
+    var src = document.createAttribute('src');
+    src.value = data.album.images[0].url;
+    img.setAttributeNode(src);
+    searchTrack.appendChild(img);
   });
   
-  $.get('/category-playlists', function(data) {
+  fetch('/category-playlists').then(resp => resp.json()).then((data) => {
     // "Data" is the object we get from the API. See server.js for the function that returns it.
     console.group('%cResponse from /category-playlists', 'color: #F037A5; font-size: large');
     console.log(data);
@@ -54,6 +44,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Display the covers of the playlists
     data
       .forEach((c) => {
+      var categoryPlaylists = document.getElementById('category-playlists-container');
+      var 
+      categoryPlaylists.appendChild(
       $('#category-playlists-container').append(`<br><h1>${c.name}</h1><br>`)
       c.data.playlists.items.map(function(playlist, i) {
       var img = $('<img class="cover-image"/>');
