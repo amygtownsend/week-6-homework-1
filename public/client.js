@@ -45,13 +45,13 @@ document.addEventListener("DOMContentLoaded", function() {
     data
       .forEach((c) => {
       let categoryPlaylists = document.getElementById('category-playlists-container');
-      let br1 = document.createElement('br');
+      let br = document.createElement('br');
       let h1 = document.createElement('h1');
       h1.innerHTML = c.name;
-      br1.appendChild(h1);
       let br2 = document.createElement('br');
-      br1.appendChild(br2);
-      categoryPlaylists.appendChild(br1);
+      categoryPlaylists.appendChild(br)
+      categoryPlaylists.appendChild(h1);
+      categoryPlaylists.appendChild(br2);
       
       c.data.playlists.items.map(function(playlist, i) {
         let img = document.createElement('img');

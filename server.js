@@ -58,6 +58,38 @@ app.get('/search-track', function (request, response) {
     }, function(err) {
       console.error(err);
     });
+  
+  let tracks = [
+    {
+      name: "Anagram"
+    },
+    {
+      name: "Silvertongue"
+    },
+  ];
+  
+  tracks.forEach((c) => {
+    spotifyApi.searchTracks(
+      `track:${name}`, 
+      { limit : 1 }
+    )
+      .then((data) => {
+        // Persist the data on this track object
+        c.data = data.body.tracks.items[0];
+    }, function(err) {
+      console.error(err);
+    });
+  });
+  
+  let check = () => {
+    if (tracks.filter(c => c.data !== undefined).length 
+    !== tracks.length) {
+      setTimeout(check, 500);
+    } else {
+      response.send(tracks);
+    }
+  }
+  
 });
 
 app.get('/category-playlists', function (request, response) {
