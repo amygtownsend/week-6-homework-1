@@ -139,10 +139,14 @@ app.get('/audio-features', function (request, response) {
   // Make an initial list of countries
   let tracks = [
     {
-      id: "4uLU6hMCjMI75M1A2tKUQC"
+      id: "6eN9yBWv9zFVZFXGsPrMxj",
+      name: "Dog Days Are Over",
+      artist: "Florence + The Machine"
     },
     {
-      id: "4uLU6hMCjMI75M1A2tKUQC"
+      id: "3oAJPaILCEZtMCVkVgiPC5",
+      name: "Spectrum",
+      artist: "Florence + The Machine"
     },
   ];
   
@@ -175,6 +179,19 @@ app.get('/audio-features', function (request, response) {
 
 app.get('/artist', function (request, response) {
   
+  let tracks = [
+    {
+      id: "6eN9yBWv9zFVZFXGsPrMxj",
+      name: "Dog Days Are Over",
+      artist: "Florence + The Machine"
+    },
+    {
+      id: "3oAJPaILCEZtMCVkVgiPC5",
+      name: "Spectrum",
+      artist: "Florence + The Machine"
+    },
+  ];
+  
   // Get information about an artist
   spotifyApi.getArtist('6jJ0s89eD6GaHleKKya26X')
     .then(function(data) {
@@ -185,6 +202,21 @@ app.get('/artist', function (request, response) {
     }, function(err) {
       console.error(err);
     });
+  
+  // Check will see if we have .data on all the country objects
+  // which indicates all requests have returned successfully.
+  // If the lengths don't match then we call check again in 500ms
+  let check = () => {
+    if (artists.filter(c => c.data !== undefined).length 
+    !== artists.length) {
+      setTimeout(check, 500);
+    } else {
+      response.send(artists);
+    }
+  }
+  
+  // Call check so we don't send a response until we have all the data back
+  check();
 });
 
 app.get('/artist-top-tracks', function (request, response) {
@@ -199,6 +231,21 @@ app.get('/artist-top-tracks', function (request, response) {
     }, function(err) {
       console.error(err);
     });
+  
+  // Check will see if we have .data on all the country objects
+  // which indicates all requests have returned successfully.
+  // If the lengths don't match then we call check again in 500ms
+  let check = () => {
+    if (artists.filter(c => c.data !== undefined).length 
+    !== artists.length) {
+      setTimeout(check, 500);
+    } else {
+      response.send(artists);
+    }
+  }
+  
+  // Call check so we don't send a response until we have all the data back
+  check();
 });
 
 

@@ -79,19 +79,26 @@ document.addEventListener("DOMContentLoaded", function() {
     let keys = ["danceability", "energy", "acousticness", "speechiness", "loudness"];
     let audioFeatures = document.getElementById('audio-features-container');
     
-    // Display the audio features
-    keys.map(function(key, i) {
-      console.log(data);
-      if (data.hasOwnProperty(key)) {
-        let p = document.createElement('p');
-        p.innerHTML = `<span class="big-number">${data[key]}</span>${key}</p>`;
-        // var feature = $('<p><span class="big-number">' + data[key] + ' </span>'  + key + '</p>');
-        audioFeatures.appendChild(p);
-      }
-    });
+    
     
     data
       .forEach((c) => {
+      // Display the track name
+      let h3 = document.createElement('h3');
+      h3.innerHTML = c.name;
+      audioFeatures.appendChild(h3);
+      // Display the artist name
+      let h5 = document.createElement('h5');
+      h5.innerHTML = c.artist;
+      audioFeatures.appendChild(h5);
+      // Display the audio features
+      keys.map(function(key, i) {
+        if (c.data.hasOwnProperty(key)) {
+          let p = document.createElement('p');
+          p.innerHTML = `<span class="big-number">${c.data[key]}</span>${key}</p>`;
+          audioFeatures.appendChild(p);
+        }
+      });
     })
   });
   
