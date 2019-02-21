@@ -44,30 +44,42 @@ document.addEventListener("DOMContentLoaded", function() {
     // Display the covers of the playlists
     data
       .forEach((c) => {
-      var categoryPlaylists = document.getElementById('category-playlists-container');
-      var 
-      categoryPlaylists.appendChild(
-      $('#category-playlists-container').append(`<br><h1>${c.name}</h1><br>`)
+      let categoryPlaylists = document.getElementById('category-playlists-container');
+      let br1 = document.createElement('br');
+      let h1 = document.createElement('h1');
+      h1.innerHTML = c.name;
+      br1.appendChild(h1);
+      let br2 = document.createElement('br');
+      br1.appendChild(br2);
+      categoryPlaylists.appendChild(br1);
+      
       c.data.playlists.items.map(function(playlist, i) {
-      var img = $('<img class="cover-image"/>');
-      img.attr('src', playlist.images[0].url);
-      img.appendTo('#category-playlists-container');
-    });
+        let img = document.createElement('img');
+        let imgClass = document.createAttribute('class');
+        imgClass.value = "cover-image";
+        let src = document.createAttribute('src');
+        src.value = playlist.images[0].url;
+        img.setAttributeNode(imgClass);
+        img.setAttributeNode(src);
+        categoryPlaylists.appendChild(img);
+      });
     })
   });
   
-  $.get('/audio-features', function(data) {
+  fetch('/audio-features').then(resp => resp.json()).then((data) => {
     // "Data" is the object we get from the API. See server.js for the function that returns it.
     console.group('%cResponse from /audio-features', 'color: #F037A5; font-size: large');
     console.log(data);
     console.groupEnd();
     
     // The audio features we want to show
-    var keys = ["danceability", "energy", "acousticness", "speechiness", "loudness"]
+    let keys = ["danceability", "energy", "acousticness", "speechiness", "loudness"];
     
     // Display the audio features
     keys.map(function(key, i) {
       if (data.hasOwnProperty(key)) {
+        let p = document.createElement('p');
+        p.innerHTML = `<span class`
         var feature = $('<p><span class="big-number">' + data[key] + ' </span>'  + key + '</p>');
         feature.appendTo('#audio-features-container');
       }
