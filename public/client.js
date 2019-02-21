@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function() {
       .forEach((c) => {
       // Display the artist name
       let h3 = document.createElement('h3');
-      h3.innerHTML = c.name;
+      h3.innerHTML = c.artist;
       topTracks.appendChild(h3);
       c.data.map(function(track, i) {
         let li = document.createElement('li');
