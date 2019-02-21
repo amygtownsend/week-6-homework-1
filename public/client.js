@@ -10,24 +10,26 @@ document.addEventListener("DOMContentLoaded", function() {
     console.groupEnd();
     
     // Display the track name
-    // var trackName = $(
-    //   // '<h3><a href="' + data.external_urls.spotify + '" target="blank">' + data.name + '</a></h3>'
-    //   `<h3><a href="${data.external_urls.spotify}">${data.name}</a></h3>`
-    // );
     let a = document.createElement("h3");
-    let b = document.createElement("a");
-    let c = document.createAttribute("href");
-    c.value = `${data.external_urls.spotify}`;
-    b.setAttributeNode(c);
-    let d = document.createTextNode(`${data.name}`);
-    b.appendChild(d);
-    a.appendChild(b);
+    a.innerHTML = `<a href=${data.external_urls.spotify} target="_blank"></a>`
+//     let b = document.createElement("a");
+//     let c = document.createAttribute("href");
+//     c.value = `${data.external_urls.spotify}`;
+//     b.setAttributeNode(c);
       
-    let e = document.getElementById("search-track-container");
-    e.appendChild(a);
+//     let d = document.createAttribute("target");
+//     d.value = '_blank';
+//     b.setAttributeNode(d);
+      
+//     let e = document.createTextNode(`${data.name}`);
+//     b.appendChild(e);
+//     a.appendChild(b);
+      
+    let f = document.getElementById("search-track-container");
+    f.appendChild(a);
     
     // Display the artist name
-    var artists = '';
+    let artists = '';
     
     data.artists.forEach(function(item) {
       artists = artists + item.name + ' ';
