@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // Display the audio features
     keys.map(function(key, i) {
+      console.log(data);
       if (data.hasOwnProperty(key)) {
         let p = document.createElement('p');
         p.innerHTML = `<span class="big-number">${data[key]}</span>${key}</p>`;
@@ -88,6 +89,10 @@ document.addEventListener("DOMContentLoaded", function() {
         audioFeatures.appendChild(p);
       }
     });
+    
+    data
+      .forEach((c) => {
+    })
   });
   
   fetch('/artist').then(resp => resp.json()).then((data) => {

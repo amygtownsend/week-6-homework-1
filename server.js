@@ -136,17 +136,26 @@ app.get('/category-playlists', function (request, response) {
 
 app.get('/audio-features', function (request, response) {
   
-  let 
+  // Make an initial list of countries
+  let tracks = [
+    {
+      id: "4uLU6hMCjMI75M1A2tKUQC"
+    },
+    {
+      id: "4uLU6hMCjMI75M1A2tKUQC"
+    },
+  ];
+  
   // Get the audio features for a track ID
-  spotifyApi.getAudioFeaturesForTrack('4uLU6hMCjMI75M1A2tKUQC')
-    .then(function(data) {
-    
-      //Send the audio features object
-      response.send(data.body);
-    
+  tracks.forEach((c) => {
+    spotifyApi.getAudioFeaturesForTrack(c.id)
+      .then((data) => {
+        // Persist the data on this track object
+        c.data = data.body;
     }, function(err) {
       console.error(err);
     });
+  });
   
   // Check will see if we have .data on all the country objects
   // which indicates all requests have returned successfully.
