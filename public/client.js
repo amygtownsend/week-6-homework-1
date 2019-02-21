@@ -14,7 +14,10 @@ document.addEventListener("DOMContentLoaded", function() {
     //   // '<h3><a href="' + data.external_urls.spotify + '" target="blank">' + data.name + '</a></h3>'
     //   `<h3><a href="${data.external_urls.spotify}">${data.name}</a></h3>`
     // );
-    var trackName = document.createElement(`<h3><a href="${data.external_urls.spotify}">${data.name}</a></h3>`);
+    var trackName = document.createElement("h3");
+    var trackName = document.createElement("a");
+    var trackName2 = document.createTextNode(`<a>${data.external_urls.spotify}">${data.name}</a>`);
+    trackName.appendChild(trackName2);
     var searchTrack = document.getElementById('search-track-container');
     searchTrack.appendChild(trackName);
     
