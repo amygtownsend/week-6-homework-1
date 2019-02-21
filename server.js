@@ -54,7 +54,7 @@ app.get('/search-track', function (request, response) {
     },
     {
       name: "Silvertongue"
-    },
+    }
   ];
   
   // Search for a track!
@@ -65,12 +65,16 @@ app.get('/search-track', function (request, response) {
     )
       .then((data) => {
         // Send the first (only) track object
+        console.log(c.data);
         c.data = data.body.tracks.items[0];
     }, function(err) {
       console.error(err);
     });
   });
   
+  // Check will see if we have .data on all the country objects
+  // which indicates all requests have returned successfully.
+  // If the lengths don't match then we call check again in 500ms
   let check = () => {
     if (tracks.filter(c => c.data !== undefined).length 
     !== tracks.length) {
@@ -79,6 +83,9 @@ app.get('/search-track', function (request, response) {
       response.send(tracks);
     }
   }
+  
+  // Call check so we don't send a response until we have all the data back
+  check();
   
 });
 
@@ -129,6 +136,7 @@ app.get('/category-playlists', function (request, response) {
 
 app.get('/audio-features', function (request, response) {
   
+  let 
   // Get the audio features for a track ID
   spotifyApi.getAudioFeaturesForTrack('4uLU6hMCjMI75M1A2tKUQC')
     .then(function(data) {
@@ -139,6 +147,21 @@ app.get('/audio-features', function (request, response) {
     }, function(err) {
       console.error(err);
     });
+  
+  // Check will see if we have .data on all the country objects
+  // which indicates all requests have returned successfully.
+  // If the lengths don't match then we call check again in 500ms
+  let check = () => {
+    if (tracks.filter(c => c.data !== undefined).length 
+    !== tracks.length) {
+      setTimeout(check, 500);
+    } else {
+      response.send(tracks);
+    }
+  }
+  
+  // Call check so we don't send a response until we have all the data back
+  check();
 });
 
 app.get('/artist', function (request, response) {

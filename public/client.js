@@ -15,12 +15,12 @@ document.addEventListener("DOMContentLoaded", function() {
       .forEach((c) => {
       // Display the track name
       let h3 = document.createElement("h3");
-      h3.innerHTML = `<a href=${c.external_urls.spotify} target="_blank">${c.name}</a>`
+      h3.innerHTML = `<a href=${c.data.external_urls.spotify} target="_blank">${c.name}</a>`
       searchTrack.appendChild(h3);
       
       // Display the artist name
       let artists = '';
-      c.artists.forEach(function(item) {
+      c.data.artists.forEach(function(item) {
         artists = artists + item.name + ' ';
       });
       
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // Display the album art
       let img = document.createElement('img');
       let src = document.createAttribute('src');
-      src.value = c.album.images[0].url;
+      src.value = c.data.album.images[0].url;
       img.setAttributeNode(src);
       searchTrack.appendChild(img);
     })
