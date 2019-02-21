@@ -179,29 +179,27 @@ app.get('/audio-features', function (request, response) {
 
 app.get('/artist', function (request, response) {
   
-  let tracks = [
+  let artists = [
     {
-      id: "6eN9yBWv9zFVZFXGsPrMxj",
-      name: "Dog Days Are Over",
-      artist: "Florence + The Machine"
+      id: "6LuN9FCkKOj5PcnpouEgny",
+      name: "Khalid"
     },
     {
-      id: "3oAJPaILCEZtMCVkVgiPC5",
-      name: "Spectrum",
-      artist: "Florence + The Machine"
-    },
+      id: "7EQ0qTo7fWT7DPxmxtSYEc",
+      name: "Bastille"
+    }
   ];
   
   // Get information about an artist
-  spotifyApi.getArtist('6jJ0s89eD6GaHleKKya26X')
-    .then(function(data) {
-    
-      // Send the list of tracks
-      response.send(data.body);
-    
+  artists.forEach((c) => {
+    spotifyApi.getArtist(c.id)
+      .then((data) => {
+        // Persist the data on this track object
+        c.data = data.body;
     }, function(err) {
       console.error(err);
     });
+  });
   
   // Check will see if we have .data on all the country objects
   // which indicates all requests have returned successfully.
@@ -220,6 +218,19 @@ app.get('/artist', function (request, response) {
 });
 
 app.get('/artist-top-tracks', function (request, response) {
+  
+  let artists = [
+    {
+      id: "6eN9yBWv9zFVZFXGsPrMxj",
+      name: "Dog Days Are Over",
+      artist: "Florence + The Machine"
+    },
+    {
+      id: "3oAJPaILCEZtMCVkVgiPC5",
+      name: "Spectrum",
+      artist: "Florence + The Machine"
+    },
+  ];
   
   // Get an artist's top tracks in a country
   spotifyApi.getArtistTopTracks('0LcJLqbBmaGUft1e9Mm8HV', 'SE')

@@ -108,29 +108,34 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(data);
     console.groupEnd();
     
-    // Display the artist's image
-    let img = document.createElement('img');
-    let imgClass = document.createAttribute('class');
-    imgClass.value = "circle-image";
-    let src = document.createAttribute('src');
-    src.value = data.images[0].url;
-    img.setAttributeNode(imgClass);
-    img.setAttributeNode(src);
     
-    let artist = document.getElementById('artist-container');
-    artist.appendChild(img);
     
-    // Display the artist name
-    let h3 = document.createElement('h3');
-    h3.innerHTML = data.name;
-    artist.appendChild(h3);
+    data
+      .forEach((c) => {
+      // Display the artist's image
+      let img = document.createElement('img');
+      let imgClass = document.createAttribute('class');
+      imgClass.value = "circle-image";
+      let src = document.createAttribute('src');
+      src.value = c.data.images[0].url;
+      img.setAttributeNode(imgClass);
+      img.setAttributeNode(src);
     
-    // Display the artist's genres
-    data.genres.map(function(genre, i) {
-      let p = document.createElement('p');
-      p.innerHTML = genre;
-      artist.appendChild(p);
-    });
+      let artist = document.getElementById('artist-container');
+      artist.appendChild(img);
+    
+      // Display the artist name
+      let h3 = document.createElement('h3');
+      h3.innerHTML = c.name;
+      artist.appendChild(h3);
+    
+      // Display the artist's genres
+      data.data.genres.map(function(genre, i) {
+        let p = document.createElement('p');
+        p.innerHTML = genre;
+        artist.appendChild(p);
+      });
+    })
   });
   
   fetch('/artist-top-tracks').then(resp => resp.json()).then((data) => {
