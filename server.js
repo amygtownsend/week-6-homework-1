@@ -48,17 +48,6 @@ spotifyApi.clientCredentialsGrant()
 
 app.get('/search-track', function (request, response) {
   
-  // Search for a track!
-  spotifyApi.searchTracks('track:proud of u', {limit: 1})
-    .then(function(data) {
-    
-      // Send the first (only) track object
-      response.send(data.body.tracks.items[0]);
-    
-    }, function(err) {
-      console.error(err);
-    });
-  
   let tracks = [
     {
       name: "Anagram"
@@ -68,13 +57,14 @@ app.get('/search-track', function (request, response) {
     },
   ];
   
+  // Search for a track!
   tracks.forEach((c) => {
     spotifyApi.searchTracks(
-      `track:${name}`, 
+      `track:${c.name}`, 
       { limit : 1 }
     )
       .then((data) => {
-        // Persist the data on this track object
+        // Send the first (only) track object
         c.data = data.body.tracks.items[0];
     }, function(err) {
       console.error(err);

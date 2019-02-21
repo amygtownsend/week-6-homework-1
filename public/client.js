@@ -8,31 +8,34 @@ document.addEventListener("DOMContentLoaded", function() {
     console.group('%cResponse from /search-track', 'color: #F037A5; font-size: large');
     console.log(data);
     console.groupEnd();
-    
-    // Display the track name
-    let h3 = document.createElement("h3");
-    h3.innerHTML = `<a href=${data.external_urls.spotify} target="_blank">${data.name}</a>`
       
     let searchTrack = document.getElementById("search-track-container");
-    searchTrack.appendChild(h3);
     
-    // Display the artist name
-    let artists = '';
+    data
+      .forEach((c) => {
+      // Display the track name
+      let h3 = document.createElement("h3");
+      h3.innerHTML = `<a href=${c.external_urls.spotify} target="_blank">${c.name}</a>`
+      searchTrack.appendChild(h3);
+      
+      // Display the artist name
+      let artists = '';
+      c.artists.forEach(function(item) {
+        artists = artists + item.name + ' ';
+      });
+      
+      let h5 = document.createElement('h5');
+      h5.innerText = artists;
+      searchTrack.appendChild(h5);
+      
+      // Display the album art
+      let img = document.createElement('img');
+      let src = document.createAttribute('src');
+      src.value = c.album.images[0].url;
+      img.setAttributeNode(src);
+      searchTrack.appendChild(img);
+    })
     
-    data.artists.forEach(function(item) {
-      artists = artists + item.name + ' ';
-    });
-    
-    let h5 = document.createElement('h5');
-    h5.innerText = artists;
-    searchTrack.appendChild(h5);
-    
-    // Display the album art
-    var img = document.createElement('img');
-    var src = document.createAttribute('src');
-    src.value = data.album.images[0].url;
-    img.setAttributeNode(src);
-    searchTrack.appendChild(img);
   });
   
   fetch('/category-playlists').then(resp => resp.json()).then((data) => {
