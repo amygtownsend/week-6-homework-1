@@ -108,8 +108,6 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(data);
     console.groupEnd();
     
-    
-    
     data
       .forEach((c) => {
       // Display the artist's image
@@ -130,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function() {
       artist.appendChild(h3);
     
       // Display the artist's genres
-      data.data.genres.map(function(genre, i) {
+      c.data.genres.map(function(genre, i) {
         let p = document.createElement('p');
         p.innerHTML = genre;
         artist.appendChild(p);
@@ -146,12 +144,18 @@ document.addEventListener("DOMContentLoaded", function() {
     
     let topTracks = document.getElementById('top-tracks-container');
     
-    // Display the audio features
-    data.map(function(track, i) {
-      let li = document.createElement('li');
-      li.innerHTML = track.name;
-      topTracks.appendChild(li);
-    });
+    data
+      .forEach((c) => {
+      // Display the artist name
+      let h3 = document.createElement('h3');
+      h3.innerHTML = c.name;
+      topTracks.appendChild(h3);
+      c.data.map(function(track, i) {
+        let li = document.createElement('li');
+        li.innerHTML = track.name;
+        topTracks.appendChild(li);
+      });
+    })
   });
 
 });

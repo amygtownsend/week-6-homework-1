@@ -221,27 +221,27 @@ app.get('/artist-top-tracks', function (request, response) {
   
   let artists = [
     {
-      id: "6eN9yBWv9zFVZFXGsPrMxj",
-      c: "Dog Days Are Over",
-      artist: "Florence + The Machine"
+      id: "6LuN9FCkKOj5PcnpouEgny",
+      code: "US",
+      artist: "Khalid"
     },
     {
-      id: "3oAJPaILCEZtMCVkVgiPC5",
-      name: "Spectrum",
-      artist: "Florence + The Machine"
+      id: "7EQ0qTo7fWT7DPxmxtSYEc",
+      code: "SE",
+      artist: "Bastille"
     },
   ];
   
   // Get an artist's top tracks in a country
-  spotifyApi.getArtistTopTracks('0LcJLqbBmaGUft1e9Mm8HV', 'SE')
-    .then(function(data) {
-    
-      // Send the list of tracks
-      response.send(data.body.tracks);
-    
+  artists.forEach((c) => {
+    spotifyApi.getArtistTopTracks(c.id, c.code)
+      .then((data) => {
+        // Persist the data on this track object
+        c.data = data.body.tracks;
     }, function(err) {
       console.error(err);
     });
+  });
   
   // Check will see if we have .data on all the country objects
   // which indicates all requests have returned successfully.
