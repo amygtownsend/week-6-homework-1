@@ -222,7 +222,7 @@ app.get('/artist-top-tracks', function (request, response) {
   let artists = [
     {
       id: "6eN9yBWv9zFVZFXGsPrMxj",
-      name: "Dog Days Are Over",
+      c: "Dog Days Are Over",
       artist: "Florence + The Machine"
     },
     {
